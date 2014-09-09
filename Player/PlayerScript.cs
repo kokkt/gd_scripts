@@ -2,6 +2,10 @@
 using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
+	static int level = 1;
+	static int xp = 0;
+	public Rect scorePosition = new Rect(16, 32, 192, 64);
+	public int xpUntilNextLevel = 3;
 	public int max_hp = 100;
 	public int hp = 0;
 	float lifeTime = 0.0f;
@@ -14,6 +18,21 @@ public class PlayerScript : MonoBehaviour {
 
 	void Update(){
 		lifeTime += Time.deltaTime;
+	}
+	public void GainXP(int amount){
+		xp += amount;
+		while (xp > xpUntilNextLevel) {
+			level++;
+			OnLevelUp();
+			xp -= xpUntilNextLevel;
+			xpUntilNextLevel *= level/2;
+		}
+	}
+	void OnGUI() {
+		GUI.Label (scorePosition, "Level: " + level + "\nXP: " + xp);
+	}
+	void OnLevelUp(){
+		rateOfFire += level;
 	}
 	public void Hit(int damage){
 		hp -= damage;
@@ -29,7 +48,9 @@ public class PlayerScript : MonoBehaviour {
 	}
 	void OnGUI(){
 		GUILayout.Space (64);
-		GUILayout.Label ("HP " + hp);
-		GUILayout.Label ("Lifetime " + lifeTime);
+		GUILayout.Label ("Level:\t" + level);
+		GUILayout.Label ("XP:\t" + xp);
+		GUILayout.Label ("HP:\t " + hp);
+		GUILayout.Label ("Lifetime:\t " + lifeTime);
 	}
 }

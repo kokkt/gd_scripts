@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 435c23aa839e4994290322197b28e599
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - textMesh: {fileID: 10200000, guid: 3207413eb75e44a419d7f44631f4b101, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
