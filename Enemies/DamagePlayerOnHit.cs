@@ -3,6 +3,7 @@ using System.Collections;
 
 public class DamagePlayerOnHit : MonoBehaviour {
 	public int amount = 5;
+	public bool destroyOnHit = false;
 
 	void Start(){
 		if (!collider) {
@@ -30,6 +31,9 @@ public class DamagePlayerOnHit : MonoBehaviour {
 			PlayerScript pscript = c.GetComponent<PlayerScript>() as PlayerScript;
 			if(pscript){
 				pscript.Hit(amount);
+				if(destroyOnHit){
+					Destroy (gameObject);
+				}
 			}
 		}
 	}

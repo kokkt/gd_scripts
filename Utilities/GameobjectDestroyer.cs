@@ -20,7 +20,6 @@ public class GameobjectDestroyer : MonoBehaviour {
 	}
 
 	private void Hit(GameObject c){
-		Debug.Log (c.tag);
 		if (c.CompareTag ("Player") && !destroyPlayer) {
 				PlayerHit ();
 		} else {
@@ -30,7 +29,6 @@ public class GameobjectDestroyer : MonoBehaviour {
 	}
 	public void PlayerHit(){
 		/* Insert code that happens when the player tagged object is hit here */
-		Debug.Log ("Player hit");
 		GameObject.FindWithTag ("Player").GetComponent<PlayerScript> ().GameOver (false);
 	}
 }
