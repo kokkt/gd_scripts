@@ -9,7 +9,7 @@ public class ProjectileThrower : MonoBehaviour {
 
 	void Update(){
 		timeBetweenShots += Time.deltaTime;
-		if (Input.GetAxis("Fire1") > 0 && timeBetweenShots > rateOfFire) {
+		if (Input.GetAxis("Fire1") > 0 && timeBetweenShots > rateOfFire*PlayerScript.Level) {
 			Rigidbody bullet;
 			bullet = GameObject.Instantiate(projectile, transform.position, transform.rotation) as Rigidbody;
 			bullet.velocity = transform.TransformDirection(Vector3.forward * 10);

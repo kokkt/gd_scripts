@@ -4,11 +4,13 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour {
 	static int level = 1;
 	static int xp = 0;
+	public static float rateOfFire = 1.0f;
 	public int xpUntilNextLevel = 3;
 	public int max_hp = 100;
 	public int hp = 0;
 	float lifeTime = 0.0f;
 
+	public static float Level { get { return level;}}
 	// Use this for initialization
 	void Start () {
 		tag = "Player";
