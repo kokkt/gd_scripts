@@ -4,7 +4,6 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour {
 	static int level = 1;
 	static int xp = 0;
-	public Rect scorePosition = new Rect(16, 32, 192, 64);
 	public int xpUntilNextLevel = 3;
 	public int max_hp = 100;
 	public int hp = 0;
@@ -27,9 +26,6 @@ public class PlayerScript : MonoBehaviour {
 			xp -= xpUntilNextLevel;
 			xpUntilNextLevel *= level/2;
 		}
-	}
-	void OnGUI() {
-		GUI.Label (scorePosition, "Level: " + level + "\nXP: " + xp);
 	}
 	void OnLevelUp(){
 		rateOfFire += level;
