@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour {
 	public bool displayXP = true;
 	public bool displayLevel = true;
 	public bool displayLifetime = true;
+	public string gameOverScene = "GameOver";
 	static int lives = maxlives;
 
 
@@ -55,7 +56,7 @@ public class PlayerScript : MonoBehaviour {
 	public void GameOver(bool win){
 		/* Insert code that happens when the game is over */
 		lives = maxlives; 
-		Application.LoadLevel ("GameOver");
+		Application.LoadLevel (gameOverScene);
 
 	}
 	public void Die(){
