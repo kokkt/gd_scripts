@@ -27,6 +27,6 @@ public class GameobjectArea : MonoBehaviour {
 	}
 	public void PlayerHit(){
 		/* Insert code that happens when the player tagged object is hit here */
-		GameObject.FindWithTag ("Player").GetComponent<PlayerScript> ().GameOver (false);
+		GameObject.FindWithTag ("Player").GetComponent<PlayerScript> ().Die ();
 	}
 }
