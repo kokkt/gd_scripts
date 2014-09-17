@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Movement2D : MonoBehaviour {
+	public bool enableAnimation = false;
 	public bool runConstantly = false;
 	public float movementSpeed = 5.0f;
 	public Vector2 jumpForce = new Vector2(0.5f, 10.0f);
@@ -12,11 +13,16 @@ public class Movement2D : MonoBehaviour {
 	CharacterController cc;
 	bool jumpAvailable = true;
 	Vector2 moveDir = new Vector2(0,0);
+	Animation anim;
 	// Use this for initialization
 	void Start () {
 		cc = GetComponent<CharacterController> ();
 		if (!cc) {
 			cc = gameObject.AddComponent<CharacterController> ();
+		}
+		if (enableAnimation) {
+			anim = GetComponentInChildren<Animation>();
+
 		}
 
 	}
@@ -46,6 +52,23 @@ public class Movement2D : MonoBehaviour {
 			moveDir.y -= gravity/10 * Time.deltaTime;
 		}
 		cc.Move (moveDir);
+		if (enableAnimation) {
+			Vector3 e = anim.transform.rotation.eulerAngles;
+
+			if(moveDir.x != 0){
+				anim.Play("run");
+			} else {
+				anim.Play("idle");
+			}
+
+			if(moveDir.x < 0){
+				e.y = 270;
+			} else if (moveDir.x > 0) {
+				e.y = 90;
+			}
+			anim.transform.rotation = Quaternion.Euler(e.x, e.y, e.z);
+
+		}
 	
 	}
 	public void Move(bool left){

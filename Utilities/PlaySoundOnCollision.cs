@@ -7,7 +7,11 @@ public class PlaySoundOnCollision : MonoBehaviour {
 	void Start(){
 		if (!audio) {
 			gameObject.AddComponent<AudioSource>();
+			audio.enabled = true;
 		}
+	}
+	void OnTriggerEnter(Collider c){
+		PlaySound ();
 	}
 	void OnCollisionEnter(Collision c){
 		PlaySound ();
@@ -17,6 +21,7 @@ public class PlaySoundOnCollision : MonoBehaviour {
 	}
 
 	void PlaySound(){
-		audio.PlayOneShot (sound);
+		AudioSource.PlayClipAtPoint (sound, transform.position);
+		//audio.PlayOneShot (sound);
 	}
 }
