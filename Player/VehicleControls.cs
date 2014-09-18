@@ -2,9 +2,17 @@
 using System.Collections;
 
 public class VehicleControls : MonoBehaviour {
-	public float acceleration = 0.1f;
+	public KeyCode accelerationKey = KeyCode.W;
+	public KeyCode brakeKey = KeyCode.S;
+	public KeyCode turnLeftKey = KeyCode.A;
+	public KeyCode turnRightKey = KeyCode.D;
+
+	public float acceleration = 0.5f;
+	public float deceleration = 0.1f;
+	public float brake = 0.9f;
 	public float maxSpeed = 3.0f;
 	public float turnSpeed = 1.0f;
+	public float gravity = 8.0f;
 
 	public float currentSpeed = 0.0f;
 	Vector3 direction = new Vector3();
@@ -21,23 +29,29 @@ public class VehicleControls : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetAxis ("Horizontal") != 0) {
-			turn.y = Input.GetAxis("Horizontal")*turnSpeed;
-			transform.Rotate(turn);
+		turn.y = 0;
+		if (Input.GetKey (turnLeftKey)) {
+			turn.y = -turnSpeed;
+		} else if (Input.GetKey (turnRightKey)) {
+			turn.y = turnSpeed;
 		}
-		float up = Input.GetAxis ("Vertical");
-		if (up != 0) {
-
-			if(up > 0 && currentSpeed < maxSpeed){
-				currentSpeed += acceleration*Time.deltaTime;
-			} else if (up < 0 && currentSpeed > 0){
-				currentSpeed -= acceleration * Time.deltaTime;
-			}
-
+		transform.Rotate(turn);
+		if (Input.GetKey (accelerationKey) && currentSpeed < maxSpeed) {
+						currentSpeed += acceleration * Time.deltaTime;
+				} else if (Input.GetKey (brakeKey) && currentSpeed > 0) {
+						currentSpeed -= acceleration * Time.deltaTime;
+				} else if (currentSpeed > 0) {
+						currentSpeed -= deceleration * Time.deltaTime;
+				} else {
+						currentSpeed = 0;
+				}
+		direction.x = transform.forward.x * currentSpeed;
+		direction.z = transform.forward.z * currentSpeed;
+		if (!cc.isGrounded) {
+			direction.y -= gravity / 10 * Time.deltaTime;
+		} else {
+			direction.y = 0;
 		}
-		direction = transform.forward * currentSpeed;
-		if (currentSpeed > 0) {
-			cc.Move (direction);
-		}
+		cc.Move (direction);
 	}
 }
