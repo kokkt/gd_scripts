@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour {
 
 	void Update(){
 		lifeTime += Time.deltaTime;
+
 	}
 	public void GainXP(int amount){
 		xp += amount;
