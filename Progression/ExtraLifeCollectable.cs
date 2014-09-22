@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ExtraLifeCollectable : MonoBehaviour {
-	int extraLives = 1;
+	public int extraLives = 1;
 	
 	void Start () {
 		if (!collider.isTrigger) {

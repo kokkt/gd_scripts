@@ -32,7 +32,6 @@ public class Movement2D : MonoBehaviour {
 		Vector3 pos = transform.position;
 		pos.z = 0;
 		transform.position = pos;
-		moveDir.x = 0;
 		if (runConstantly) {
 			Move (false);
 		} else {
@@ -43,7 +42,7 @@ public class Movement2D : MonoBehaviour {
 				Move (false);
 			}
 		}
-		if (Input.GetKeyDown (jumpKey) || Input.GetMouseButtonDown(0)) {
+		if (Input.GetKeyDown (jumpKey)) {
 			Jump (jumpForce);
 		}
 		if (cc.isGrounded) {
@@ -52,6 +51,7 @@ public class Movement2D : MonoBehaviour {
 			moveDir.y -= gravity/10 * Time.deltaTime;
 		}
 		cc.Move (moveDir);
+		moveDir.x = 0;
 		if (enableAnimation) {
 			Vector3 e = anim.transform.rotation.eulerAngles;
 
@@ -71,12 +71,14 @@ public class Movement2D : MonoBehaviour {
 		}
 	
 	}
+
 	public void Move(bool left){
 		moveDir.x = movementSpeed * Time.deltaTime;
 		if (left) {
 			moveDir.x *= -1;
 		}
 	}
+
 	public void Jump(Vector2 force){
 		if (jumpAvailable) {
 			moveDir.y = force.y/30;
