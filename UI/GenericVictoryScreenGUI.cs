@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GenericVictoryScreenGUI : MonoBehaviour {
 	public string MainMenuScene = "MainMenu";
+	public string MainMenuButtonText = "Back to Main Menu";
+	public string ScoreName = "points";
 	Rect areaRect;
 	void Start(){
 		areaRect = new Rect ();
@@ -18,10 +20,10 @@ public class GenericVictoryScreenGUI : MonoBehaviour {
 		GUILayout.BeginArea (areaRect);
 		GUILayout.BeginHorizontal ();
 		GUILayout.FlexibleSpace ();
-		GUILayout.Label ("You win!\nYour score: " + PlayerScript.score);
+		GUILayout.Label ("You win!\nYour "+ScoreName+": " + PlayerScript.score);
 		GUILayout.FlexibleSpace ();
 		GUILayout.EndHorizontal ();
-		if (GUILayout.Button ("Back to main menu", GUILayout.ExpandHeight (true))) {
+		if (GUILayout.Button (MainMenuButtonText, GUILayout.ExpandHeight (true))) {
 			Application.LoadLevel(MainMenuScene);
 		}
 		GUILayout.EndArea ();

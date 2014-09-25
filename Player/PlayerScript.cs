@@ -5,7 +5,7 @@ public class PlayerScript : MonoBehaviour {
 	static int level = 1;
 	static int xp = 0;
 	static public int maxlives = 3;
-	static float lifeTime = 0.0f;
+	static public float lifeTime = 0.0f;
 	static public int score = 0;
 	public static float rateOfFire = 1.0f;
 	public int xpUntilNextLevel = 3;
