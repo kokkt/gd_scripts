@@ -20,7 +20,7 @@ public class PlayerSpawn : MonoBehaviour {
 		if (player) {
 			GameObject.Destroy(player);
 		}
-		GameObject.Instantiate (playerPrefab, transform.position, Quaternion.identity);
+		GameObject.Instantiate (playerPrefab, transform.position, transform.rotation);
 	}
 	public void Respawn (GameObject player){
 		player.transform.position = transform.position;
