@@ -12,7 +12,7 @@ public class ScoreCollectable : MonoBehaviour {
 
 	void OnTriggerEnter(Collider c){
 		if (c.CompareTag ("Player")) {
-			c.GetComponent<PlayerScript>().AddScore(scoreAdd);
+			c.GetComponent<Score>().AddScore(scoreAdd);
 			Destroy (gameObject);
 		}
 	}

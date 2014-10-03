@@ -12,7 +12,7 @@ public class ExtraLifeCollectable : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider c){
 		if (c.CompareTag ("Player")) {
-			c.GetComponent<PlayerScript>().AddLives(extraLives);
+			c.GetComponent<Health>().AddLives(extraLives);
 			Destroy (gameObject);
 		}
 	}

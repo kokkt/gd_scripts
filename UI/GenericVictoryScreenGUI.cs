@@ -6,8 +6,14 @@ public class GenericVictoryScreenGUI : MonoBehaviour {
 	public string MainMenuButtonText = "Back to Main Menu";
 	public string ScoreName = "points";
 	Rect areaRect;
+    Score score;
 	void Start(){
-		areaRect = new Rect ();
+        areaRect = new Rect();
+        score = PlayerScript.GetAttribute(typeof(Score)) as Score;
+        if (!score)
+        {
+            Debug.LogWarning("Player doesn't have a Score component!");
+        }
 	}
 	void OnGUI(){
 		int w = Screen.width;
@@ -20,7 +26,7 @@ public class GenericVictoryScreenGUI : MonoBehaviour {
 		GUILayout.BeginArea (areaRect);
 		GUILayout.BeginHorizontal ();
 		GUILayout.FlexibleSpace ();
-		GUILayout.Label ("You win!\nYour "+ScoreName+": " + PlayerScript.score);
+		GUILayout.Label ("You win!\nYour "+ScoreName+": " + score.score);
 		GUILayout.FlexibleSpace ();
 		GUILayout.EndHorizontal ();
 		if (GUILayout.Button (MainMenuButtonText, GUILayout.ExpandHeight (true))) {

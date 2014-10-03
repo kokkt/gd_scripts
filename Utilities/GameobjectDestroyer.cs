@@ -34,6 +34,6 @@ public class GameobjectDestroyer : MonoBehaviour {
 	}
 	public void PlayerHit(){
 		/* Insert code that happens when the player tagged object is hit here */
-		GameObject.FindWithTag ("Player").GetComponent<PlayerScript> ().Die ();
+		GameObject.FindWithTag ("Player").GetComponent<Health> ().Die ();
 	}
 }

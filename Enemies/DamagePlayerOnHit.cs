@@ -28,7 +28,7 @@ public class DamagePlayerOnHit : MonoBehaviour {
 	}
 	void Hit(GameObject c){
 		if(c.CompareTag("Player")){
-			PlayerScript pscript = c.GetComponent<PlayerScript>() as PlayerScript;
+			Health pscript = c.GetComponent<Health>();
 			if(pscript){
 				pscript.Hit(amount);
 				if(destroyOnHit){
