@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MotionWave : MotionPattern{
+public class MotionWave : MonoBehaviour {
 	public enum Method {Sin, Cos, Tan}
 	public Method method = Method.Sin;
 	public Vector3 direction = new Vector3 ();
