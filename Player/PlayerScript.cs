@@ -11,7 +11,12 @@ public class PlayerScript : MonoBehaviour
         tag = "Player";
         name = "Player";
         attributes = GetComponents<PlayerAttribute>();
-        Debug.Log("Attributes: " + attributes.Length);
+        string msg = "Player initialized with attributes: ";
+        foreach (PlayerAttribute a in attributes)
+        {
+            msg += " " + a;
+        }
+        Debug.Log(msg);
     }
     void Update()
     {

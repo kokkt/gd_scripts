@@ -14,6 +14,9 @@ public class DamagePlayerOnHit : MonoBehaviour {
 	void OnCollisionEnter(Collision c){
 		Hit (c.collider.gameObject);
 	}
+    void OnControllerCollisionEnter(Collision c){
+		Hit (c.collider.gameObject);
+	}
 	
 	void OnTriggerEnter(Collider c){
 		Hit (c.collider.gameObject);
