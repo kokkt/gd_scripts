@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum Direction { Left, Right, Forward, Backward }
 public class Movement3D : MonoBehaviour {
     CharacterController cc;
     public float moveSpeed = 15.0f;
     public Vector3 jumpHeight = new Vector3(0, 3f, 0);
     public Vector3 gravity = new Vector3(0, 1f, 0);
+    public bool controllable = true;
     public KeyCode forwardKey = KeyCode.W;
     public KeyCode backwardKey = KeyCode.S;
     public KeyCode leftKey = KeyCode.A;
@@ -35,14 +37,15 @@ public class Movement3D : MonoBehaviour {
         }
         
 
-        if (mouseLook)
+        if (mouseLook && controllable)
         {
 			ml_plr = gameObject.AddComponent<MouseLook>();
 			ml_plr.axes = MouseLook.RotationAxes.MouseX;
 			ml_plr.sensitivityX = mouseSensitivity.x;
 			ml_cam = GetComponentInChildren<Camera>().gameObject.AddComponent<MouseLook>();
-			ml_cam.axes = MouseLook.RotationAxes.MouseY;
-			ml_cam.sensitivityY = mouseSensitivity.y;
+            ml_cam.axes = MouseLook.RotationAxes.MouseY;
+            ml_cam.sensitivityY = mouseSensitivity.y;
+            
         }
         if (!collider)
         {
@@ -70,27 +73,29 @@ public class Movement3D : MonoBehaviour {
                 lastColliderDelta = Vector3.zero;
             }
         }
+        if (controllable)
+        {
+            if (Input.GetKey(forwardKey))
+            {
+                Move(Direction.Forward);
+            }
 
-        if (Input.GetKey(forwardKey))
-        {
-            moveDir += transform.forward;
-        }
-
-        if (Input.GetKey(backwardKey))
-        {
-            moveDir -= transform.forward;
-        }
-        if (Input.GetKey(rightKey))
-        {
-            moveDir += transform.right;
-        }
-        if (Input.GetKey(leftKey))
-        {
-            moveDir -= transform.right;
-        }
-        if (Input.GetKey(jump) && jumpAvailable)
-        {
-            Jump();
+            if (Input.GetKey(backwardKey))
+            {
+                Move(Direction.Backward);
+            }
+            if (Input.GetKey(rightKey))
+            {
+                Move(Direction.Right);
+            }
+            if (Input.GetKey(leftKey))
+            {
+                Move(Direction.Left);
+            }
+            if (Input.GetKey(jump))
+            {
+                Jump();
+            }
         }
 
         /* Move if there is somewhere to move */
@@ -100,10 +105,21 @@ public class Movement3D : MonoBehaviour {
         }
         moveDir = Vector3.zero;
 
-        /* Gravity related stuff */
+        /* Gravity */
         if (gravityInc.magnitude > 0)
         {
             cc.Move(gravityInc);
+        }
+
+        /* Increase falling speed */
+        if (!cc.isGrounded)
+        {
+            gravityInc -= gravity * Time.deltaTime;
+        }
+        else
+        {
+            gravityInc = Vector3.zero;
+            jumpAvailable = true;
         }
 
         falling = collisionAngle < 0;
@@ -114,23 +130,39 @@ public class Movement3D : MonoBehaviour {
             gravityInc.y = 0;
             collisionAngle = 180;
         }
-        /* Actual gravity */
-        if (!cc.isGrounded)
-        {
-            gravityInc -= gravity*Time.deltaTime;
-        }
-        else
-        {
-            gravityInc = Vector3.zero;
-            jumpAvailable = true;
-        }
 	
 	}
+    public void Move(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.Left:
+                moveDir -= transform.right;
+                break;
+            case Direction.Right:
+                moveDir += transform.right;
+                break;
+            case Direction.Forward:
+                moveDir += transform.forward;
+                break;
+            case Direction.Backward:
+                moveDir -= transform.forward;
+                break;
+        }
+    }
     public void Jump()
     {
-        jumpAvailable = false;
-        gravityInc = jumpHeight/10;
-        lastCollider = null;
+        if (jumpAvailable)
+        {
+            jumpAvailable = false;
+            gravityInc = jumpHeight / 10;
+            lastCollider = null;
+        }
+    }
+    public void Turn(Vector3 lookRotation)
+    {
+        transform.rotation = Quaternion.LookRotation(lookRotation);
+        Debug.DrawRay(transform.position, lookRotation, Color.red);
     }
     void OnControllerColliderHit(ControllerColliderHit hit)
     {

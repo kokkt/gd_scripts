@@ -5,9 +5,11 @@ public class PlayerScript : MonoBehaviour
 {
     public string gameOverScene = "GameOver";
     public static PlayerAttribute[] attributes;
+    public static GameObject playerObject;
     // Use this for initialization
     void Start()
     {
+        playerObject = gameObject;
         tag = "Player";
         name = "Player";
         attributes = GetComponents<PlayerAttribute>();
@@ -51,4 +53,6 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+    void Hit(float amt)
+    {}
 }

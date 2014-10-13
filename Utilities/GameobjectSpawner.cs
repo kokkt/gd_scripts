@@ -15,7 +15,7 @@ public class GameobjectSpawner : MonoBehaviour {
 	void Update () {
 	if (elapsedTime > 1.0f/spawnRate) {
 			spawnPos = transform.position;
-			AddVariance(spawnPos, spawnVariation);
+			spawnPos = AddVariance(spawnPos, spawnVariation);
 			Object obj = Instantiate(objectToSpawn, spawnPos, objectToSpawn.rotation);
 			Rigidbody rBody = (obj as Transform).rigidbody;
 			if(rBody){
