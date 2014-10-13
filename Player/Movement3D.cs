@@ -12,6 +12,7 @@ public class Movement3D : MonoBehaviour {
     public KeyCode rightKey = KeyCode.D;
     public KeyCode jump = KeyCode.Space;
     public bool mouseLook = true;
+	public Vector2 mouseSensitivity = new Vector2 (4.0f, 4.0f);
     public float slopeThreshold = 0.2f;
     Transform lastCollider;
     Vector3 lastColliderPos;
@@ -23,6 +24,8 @@ public class Movement3D : MonoBehaviour {
     float collisionAngle = -1.0f;
     bool falling = true;
     CapsuleCollider trigger;
+	MouseLook ml_cam;
+	MouseLook ml_plr;
 	// Use this for initialization
 	void Start () {
         cc = GetComponent<CharacterController>();
@@ -34,8 +37,12 @@ public class Movement3D : MonoBehaviour {
 
         if (mouseLook)
         {
-            gameObject.AddComponent<MouseLook>().axes = MouseLook.RotationAxes.MouseX;
-            GetComponentInChildren<Camera>().gameObject.AddComponent<MouseLook>().axes = MouseLook.RotationAxes.MouseY;
+			ml_plr = gameObject.AddComponent<MouseLook>();
+			ml_plr.axes = MouseLook.RotationAxes.MouseX;
+			ml_plr.sensitivityX = mouseSensitivity.x;
+			ml_cam = GetComponentInChildren<Camera>().gameObject.AddComponent<MouseLook>();
+			ml_cam.axes = MouseLook.RotationAxes.MouseY;
+			ml_cam.sensitivityY = mouseSensitivity.y;
         }
         if (!collider)
         {
