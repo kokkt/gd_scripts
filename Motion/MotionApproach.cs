@@ -13,6 +13,7 @@ public class MotionApproach : MonoBehaviour {
         {
             movement = gameObject.AddComponent<Movement3D>();
         }
+		movement.controllable = false;
 	}
 	
 	// Update is called once per frame

@@ -42,9 +42,12 @@ public class Movement3D : MonoBehaviour {
 			ml_plr = gameObject.AddComponent<MouseLook>();
 			ml_plr.axes = MouseLook.RotationAxes.MouseX;
 			ml_plr.sensitivityX = mouseSensitivity.x;
-			ml_cam = GetComponentInChildren<Camera>().gameObject.AddComponent<MouseLook>();
-            ml_cam.axes = MouseLook.RotationAxes.MouseY;
-            ml_cam.sensitivityY = mouseSensitivity.y;
+			Camera cam = GetComponentInChildren<Camera>();
+			if(cam){
+				ml_cam = cam.gameObject.AddComponent<MouseLook>();
+	            ml_cam.axes = MouseLook.RotationAxes.MouseY;
+	            ml_cam.sensitivityY = mouseSensitivity.y;
+			}
             
         }
         if (!collider)
@@ -153,7 +156,8 @@ public class Movement3D : MonoBehaviour {
     public void Jump()
     {
         if (jumpAvailable)
-        {
+		{
+			Debug.Log ("Jump!");
             jumpAvailable = false;
             gravityInc = jumpHeight / 10;
             lastCollider = null;
@@ -181,6 +185,6 @@ public class Movement3D : MonoBehaviour {
     }
     void OnGUI()
     {
-        GUILayout.Label(collisionPoint + "");
+        //GUILayout.Label(collisionPoint + "");
     }
 }
