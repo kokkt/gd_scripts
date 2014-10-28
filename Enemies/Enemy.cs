@@ -4,7 +4,7 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 	public float max_hp = 50;
 	public float hp;
-	public int xp_gain = 20;
+	public int xp_gain = 2;
 	// Use this for initialization
 	void Start () {
 		hp = max_hp;
@@ -18,9 +18,12 @@ public class Enemy : MonoBehaviour {
 	public void TakeDamage(float amount){
 		hp -= amount;
 		if (hp <= 0) {
-			Experience xp = PlayerScript.GetAttribute (typeof(Experience)) as Experience;
-			xp.GainXP (xp_gain);
-			Destroy(gameObject);
+			Die();
 		}
+	}
+	public void Die(){
+		Experience xp = PlayerScript.GetAttribute (typeof(Experience)) as Experience;
+		xp.GainXP (xp_gain);
+		Destroy(gameObject);
 	}
 }

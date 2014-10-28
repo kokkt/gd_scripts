@@ -52,6 +52,9 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+	void OnLevelUp(){
+		Debug.Log ("Ding!");
+	}
     void Hit(float amt)
     {}
 }

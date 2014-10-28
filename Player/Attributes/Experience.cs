@@ -34,6 +34,6 @@ public class Experience : PlayerAttribute
     }
     public override string GetUIString()
     {
-        return "";
+        return "Level:\t"+xp;
     }
 }
