@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-[ExecuteInEditMode]
 public class PlayerScript : MonoBehaviour
 {
     public string gameOverScene = "GameOver";
